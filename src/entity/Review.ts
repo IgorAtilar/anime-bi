@@ -3,23 +3,19 @@ import {
   Column,
   OneToOne,
   JoinColumn,
-  PrimaryColumn,
   ManyToOne,
+  PrimaryGeneratedColumn,
+  Index,
 } from 'typeorm';
 import { Anime } from './Anime';
 import { Season } from './Season';
 
 @Entity()
 export class Review {
-  @PrimaryColumn()
-  animeId: string;
+  @PrimaryGeneratedColumn()
+  id: string;
 
-  @PrimaryColumn()
-  seasonYear: number;
-
-  @PrimaryColumn()
-  seasonSeason: string;
-
+  @Index({ unique: true })
   @OneToOne(() => Anime)
   @JoinColumn()
   anime: Anime;
@@ -30,6 +26,9 @@ export class Review {
 
   @Column('decimal')
   score: number;
+
+  @Column()
+  members: number;
 
   @Column()
   rank: number;

@@ -1,4 +1,4 @@
-import { Entity, Column, PrimaryColumn, ManyToMany } from 'typeorm';
+import { Entity, Column, PrimaryColumn, ManyToMany, Index } from 'typeorm';
 import { Anime } from './Anime';
 
 @Entity()
@@ -6,6 +6,7 @@ export class Genre {
   @PrimaryColumn()
   id: number;
 
+  @Index({ unique: true })
   @Column()
   name: string;
 

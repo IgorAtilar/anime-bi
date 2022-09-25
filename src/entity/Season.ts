@@ -7,7 +7,7 @@ export class Season {
   year: number;
 
   @PrimaryColumn()
-  season: string;
+  name: string;
 
   @OneToMany(() => Review, (review) => review.season)
   reviews: Review[];

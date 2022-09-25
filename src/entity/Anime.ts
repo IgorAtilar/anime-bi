@@ -13,18 +13,13 @@ export class Anime {
   @Column()
   source: string;
 
-  @Column({ nullable: true })
+  @Column()
   episodes: number;
 
   @Column()
   duration: string;
 
   @Column()
-  status: string;
-
-  @Column({
-    nullable: true,
-  })
   rating: string;
 
   @ManyToMany(() => Genre, (genre) => genre.animes)
