@@ -1,8 +1,8 @@
 version: '3'
 services:
-  dw:
+  dm:
     image: postgres:9.6
     environment:
-      POSTGRES_PASSWORD: ${DW_PASSWORD}
+      POSTGRES_PASSWORD: ${DM_PASSWORD}
     ports:
-      - ${DW_PORT}:5432
+      - ${DM_PORT}:5432

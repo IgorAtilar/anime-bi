@@ -5,8 +5,8 @@ import { Anime, Genre, Theme, Review, Season } from '../entity';
 
 dotenv.config();
 
-const port = Number(process.env.DW_PORT);
-const password = process.env.DW_PASSWORD;
+const port = Number(process.env.DM_PORT);
+const password = process.env.DM_PASSWORD;
 
 export const ETLDataSource = new DataSource({
   port,
