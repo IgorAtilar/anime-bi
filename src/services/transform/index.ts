@@ -41,16 +41,14 @@ export function transformAnime({
   themes: Theme[];
   genres: Genre[];
 }) {
-  const { mal_id, source, duration, episodes, status, rating, title } =
-    rawAnime;
+  const { mal_id, source, duration, episodes, rating, title } = rawAnime;
 
   const anime = ETLDataSource.manager.create(Anime, {
     id: mal_id,
     source,
     duration,
-    episodes,
-    status,
-    rating,
+    episodes: episodes || 0,
+    rating: rating || 'G - All Ages',
     genres,
     themes,
     title,
@@ -60,10 +58,10 @@ export function transformAnime({
 }
 
 export function transformAnimeSeason(rawAnime: RawAnime) {
-  const { year, season: rawAnimeSeason } = rawAnime;
+  const { year, season: name } = rawAnime;
   const season = ETLDataSource.manager.create(Season, {
     year,
-    season: rawAnimeSeason,
+    name,
   });
 
   return season;
@@ -78,11 +76,12 @@ export function transformAnimeReview({
   anime: Anime;
   season: Season;
 }) {
-  const { score, rank, popularity, favorites, scored_by } = rawAnime;
+  const { score, rank, popularity, favorites, scored_by, members } = rawAnime;
 
   const review = ETLDataSource.manager.create(Review, {
     anime,
     season,
+    members: members || 0,
     score: score || 0,
     rank: rank || 0,
     popularity: popularity || 0,
