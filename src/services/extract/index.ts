@@ -33,15 +33,39 @@ export type RawAnime = {
 
 type SeasonResponse = {
   data: RawAnime[];
+  pagination: {
+    has_next_page: boolean;
+    current_page: number;
+  };
 };
 
 async function fetchAnimesDataBySeason(year: number, season: string) {
+  const rawAnimes = [];
   try {
-    const {
-      data: { data },
-    } = await api.get<SeasonResponse>(`/seasons/${year}/${season}`);
+    let hasNextPage = true;
+    let page = 1;
 
-    return data;
+    while (hasNextPage) {
+      const {
+        data: {
+          data,
+          pagination: { has_next_page },
+        },
+      } = await api.get<SeasonResponse>(`/seasons/${year}/${season}`, {
+        params: {
+          page,
+        },
+      });
+
+      rawAnimes.push(...data);
+
+      hasNextPage = !!has_next_page;
+      page++;
+
+      await delay(400);
+    }
+
+    return rawAnimes;
   } catch (error) {
     console.error(error);
   }
@@ -65,7 +89,6 @@ export async function extractAnimesData() {
       const animes = await fetchAnimesDataBySeason(year, season);
       response.push(...animes);
       console.log(`(─‿‿─) animes da temporada ${year} - ${season} baixados!`);
-      await delay(400);
     }
   }
   console.log(`Dados extraídos!`);

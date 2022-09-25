@@ -44,6 +44,6 @@ export async function loadData() {
 
     await ETLDataSource.manager.save(review);
 
-    console.log(`ʕ•́ᴥ•̀ʔっ ${rawAnime.title} carregado no DW!`);
+    console.log(`ʕ•́ᴥ•̀ʔっ ${rawAnime.title} carregado no DM!`);
   }
 }
